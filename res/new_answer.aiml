@@ -3,6 +3,22 @@
 
 
 
+<category><pattern>你会什么</pattern>
+<template>你会做什么</template>
+</category>
+
+<category><pattern>你会做什么</pattern>
+<template>我会很多</template>
+</category>
+
+<category><pattern>今天的天气</pattern>
+<template>不错</template>
+</category>
+
+<category><pattern></pattern>
+<template>今天的天气</template>
+</category>
+
 <category><pattern>你吃饭了么</pattern>
 <template>我不需要吃饭的～哈哈</template>
 </category>

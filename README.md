@@ -9,6 +9,9 @@ A Chinese Chat Robot based on AIML and Web.py. Using SVM for sentiment classific
   * pip install numpy  
   * pip install web.py  
  
+```
+pip install aiml jieba sklearn numpy web.py
+```
   
 ### 2, How to run:
 

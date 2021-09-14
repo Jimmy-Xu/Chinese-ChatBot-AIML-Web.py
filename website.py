@@ -103,7 +103,7 @@ class add:
         else:
             new_answer = form['Answer'].value
             web.header('Content-Type','text/html; charset=utf-8', unique=True)
-            print self.new_question
+            print(self.new_question)
             global after_question
             robot.addAnswer(after_question, new_answer)
             raise web.seeother('/')

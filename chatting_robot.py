@@ -5,8 +5,11 @@ import sys
 import jieba
 import math
 # import SVMClass
+
+import operator
+
 jieba.load_userdict("./res/negative_word.txt")
-reload(sys)
+#reload(sys)
 
 
 #全局变量cnt_neg用于记录负面词汇出现的次数，在此处初始化
@@ -27,7 +30,7 @@ class ChatRobot:
         # print self.SVM.test("我好累")
 
         #不加这个就不能用cmp9()
-        sys.setdefaultencoding('utf8')
+        #sys.setdefaultencoding('utf8')
 
         #加载aiml文件
         self.kernel = aiml.Kernel()
@@ -61,7 +64,7 @@ class ChatRobot:
             for line in lines:
         #		print s ,line
                 #如果词汇为负面词汇，cnt_neg++
-                if cmp(s,(line.strip())) == 0:
+                if operator.eq(s,(line.strip())):
                     cnt_neg +=1
         #print "count"
         cnt_sum += 1
@@ -76,12 +79,13 @@ class ChatRobot:
             p_neg = cnt_neg/(cnt_sum-1)
 
             if p_neg > 0.5:
-               print r'''
+               print( r'''
         你好像有点不开心，去和咱们的老师聊聊，怎么样
         如果你在中关村校区，可以在周一至周五的14:00-17:00和周一至周四的18:30-21:30打68913687预约
         如果在良乡校区的话，可以在周一至周五的09:00-12:00和13:00-16:00打81384940预约～
         相信和老师聊聊的你会舒坦一些～
                     '''
+                )
 
             exit()
 
@@ -92,7 +96,7 @@ class ChatRobot:
         answer = self.kernel.respond(cut_output)
         #如果没有答案，则添加用户的回答
         if answer is "":
-            print "No Answer for -> \"" +question+"\""
+            print( "No Answer for -> \"" +question+"\"")
             return ""
 
         return answer
@@ -100,7 +104,7 @@ class ChatRobot:
     def addAnswer(self, question,new_answer):
 
         #用户教的回答都存在new_answer.aiml里
-        fp = file('./res/new_answer.aiml')
+        fp = open('./res/new_answer.aiml')
         s = fp.read()
         fp.close()
         #将文档以一行为单位切开
@@ -110,10 +114,10 @@ class ChatRobot:
         split_line.insert(6,"<template>"+new_answer+"</template>\n</category>\n")
         s = '\n'.join(split_line)
         #把加入新答案的内容写回文档里
-        fp = file('./res/new_answer.aiml','w')
+        fp = open('./res/new_answer.aiml','w')
         fp.write(s)
         fp.close()
 
         #重新加载new_answer.aiml文档
         self.kernel.respond("load aiml b")
-        print "添加成功，试试再问我一遍：）"
+        print( "添加成功，试试再问我一遍：）")
